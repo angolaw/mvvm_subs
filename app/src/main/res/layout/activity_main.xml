@@ -21,6 +21,7 @@
         android:layout_margin="15dp"
         android:layout_marginBottom="5dp"
         android:ems="10"
+        android:hint="@string/nome"
         android:text="@={myViewModel.inputName}"
         android:inputType="textPersonName"
         android:textStyle="bold" />
@@ -33,6 +34,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:ems="10"
+        android:hint="@string/email"
         android:text="@={myViewModel.inputEmail}"
         android:inputType="textEmailAddress"
         android:textStyle="bold" />
