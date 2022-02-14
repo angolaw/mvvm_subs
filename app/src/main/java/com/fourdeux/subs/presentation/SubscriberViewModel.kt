@@ -1,5 +1,6 @@
 package com.fourdeux.subs.presentation
 
+import androidx.annotation.Keep
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,6 +8,7 @@ import com.fourdeux.subs.data.model.Subscriber
 import com.fourdeux.subs.data.repository.SubscriberRepository
 import kotlinx.coroutines.launch
 
+@Keep
 class SubscriberViewModel(private val repository: SubscriberRepository):ViewModel() {
     val inputName = MutableLiveData<String>()
     val inputEmail = MutableLiveData<String>()

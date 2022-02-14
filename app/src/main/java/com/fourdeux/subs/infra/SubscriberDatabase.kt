@@ -9,7 +9,7 @@ import com.fourdeux.subs.data.model.Subscriber
 
 
 @Database(entities = [Subscriber::class], version = 1)
-abstract class SubscriberDatabase {
+abstract class SubscriberDatabase:RoomDatabase() {
     abstract  val subscriberDAO: SubscriberDAO
 
     companion object {
