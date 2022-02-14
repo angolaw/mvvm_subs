@@ -41,6 +41,9 @@ class SubscriberViewModel(private val repository: SubscriberRepository):ViewMode
 
 
     }
+    fun clearOrDeleteAll(){
+        clearAll()
+    }
     private fun insertSubscriber(subscriber: Subscriber) = viewModelScope.launch {
         val newRowId = repository.insert(subscriber)
         if(newRowId > -1){
