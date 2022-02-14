@@ -33,6 +33,11 @@ class SubscriberViewModel(private val repository: SubscriberRepository):ViewMode
         }else if(!Patterns.EMAIL_ADDRESS.matcher(inputEmail.value!!).matches()){
             statusMessage.value = Event("Favor inserir um email válido")
         }else {
+            if(isUpdateOrdelete){
+                subscriberToUpdateOrDelete.name = inputName.value!!
+                subscriberToUpdateOrDelete.email = inputEmail.value!!
+                updateSubscriber(subscriberToUpdateOrDelete)
+            }
             val name = inputName.value!!
             val email = inputEmail.value!!
             val sub = Subscriber(0,name, email)
@@ -44,8 +49,40 @@ class SubscriberViewModel(private val repository: SubscriberRepository):ViewMode
 
     }
     fun clearOrDeleteAll(){
-        clearAll()
+        if(isUpdateOrdelete){
+            deleteSubscriber(subscriberToUpdateOrDelete)
+        }else{
+            clearAll()
+
+        }
     }
+    private fun deleteSubscriber(subscriber: Subscriber) = viewModelScope.launch {
+        val numberOfRows = repository.delete(subscriber)
+        if(numberOfRows > 0){
+            inputName.value = ""
+            inputEmail.value = ""
+            isUpdateOrdelete = false
+            saveOrUpdateButtonText.value = "Salvar"
+            clearAllOrDeleteButtonText.value = "Limpar tudo"
+            statusMessage.value = Event("$numberOfRows registros deletados")
+        }else{
+            statusMessage.value= Event("Um erro ocorreu")
+        }
+    }
+    private fun updateSubscriber(subscriber: Subscriber) = viewModelScope.launch {
+        val numberOfRows = repository.update(subscriber)
+        if(numberOfRows> 0){
+            inputName.value = ""
+            inputEmail.value = ""
+            isUpdateOrdelete = false
+            saveOrUpdateButtonText.value = "Salvar"
+            clearAllOrDeleteButtonText.value = "Limpar tudo"
+            statusMessage.value = Event("$numberOfRows registros atualizados com sucesso")
+        }else{
+            statusMessage.value = Event("Um erro ocorreu")
+        }
+    }
+
     private fun insertSubscriber(subscriber: Subscriber) = viewModelScope.launch {
         val newRowId = repository.insert(subscriber)
         if(newRowId > -1){
