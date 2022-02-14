@@ -2,13 +2,11 @@ package com.fourdeux.subs.presentation
 
 import android.util.Patterns
 import androidx.annotation.Keep
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.fourdeux.subs.Event
 import com.fourdeux.subs.data.model.Subscriber
 import com.fourdeux.subs.data.repository.SubscriberRepository
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @Keep
@@ -50,5 +48,10 @@ class SubscriberViewModel(private val repository: SubscriberRepository):ViewMode
         }else{
             statusMessage.value = Event("Um erro ocorreu")
         }
+    }
+    fun getSavedSubscribers() = liveData {
+        repository.subscribers.collect {
+        emit(it)
+    }
     }
 }
