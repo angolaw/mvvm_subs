@@ -54,4 +54,12 @@ class SubscriberViewModel(private val repository: SubscriberRepository):ViewMode
         emit(it)
     }
     }
+    private fun clearAll() = viewModelScope.launch {
+        val numberOfRowsAffected = repository.deleteAll()
+        if(numberOfRowsAffected > 0){
+            statusMessage.value  = Event("$numberOfRowsAffected subs deletados")
+        }else{
+            statusMessage.value = Event("Um erro ocorreu")
+        }
+    }
 }
