@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         val dao = SubscriberDatabase.getInstance(application).subscriberDAO
         val repository = SubscriberRepository(dao)
         val factory = SubscriberViewModelFactory(repository)
-        subscriberViewModel = ViewModelProvider(this, factory).get(SubscriberViewModel::class.java)
+        subscriberViewModel = ViewModelProvider(this, factory)[SubscriberViewModel::class.java]
         binding.myViewModel = subscriberViewModel
         binding.lifecycleOwner = this
 
