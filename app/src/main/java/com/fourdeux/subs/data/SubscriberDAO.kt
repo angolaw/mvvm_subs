@@ -1,4 +1,4 @@
-package com.fourdeux.subs.infra
+package com.fourdeux.subs.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
