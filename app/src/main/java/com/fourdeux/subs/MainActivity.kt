@@ -1,5 +1,6 @@
 package com.fourdeux.subs
 
+import MyRecyclerViewAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -11,14 +12,13 @@ import com.fourdeux.subs.data.model.Subscriber
 import com.fourdeux.subs.data.repository.SubscriberRepository
 import com.fourdeux.subs.databinding.ActivityMainBinding
 import com.fourdeux.subs.infra.SubscriberDatabase
-import com.fourdeux.subs.presentation.MyRecyckerViewAdapter
 import com.fourdeux.subs.presentation.SubscriberViewModel
 import com.fourdeux.subs.presentation.SubscriberViewModelFactory
 
 class MainActivity : AppCompatActivity() {
     private lateinit var  binding: ActivityMainBinding
     private lateinit var  subscriberViewModel: SubscriberViewModel
-    private lateinit var adapter: MyRecyckerViewAdapter
+    private lateinit var adapter: MyRecyclerViewAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun initRecyclerView(){
         binding.subscriberRecyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = MyRecyckerViewAdapter { selectedItem: Subscriber -> listItemClicked(selectedItem) }
+        adapter = MyRecyclerViewAdapter { selectedItem: Subscriber -> listItemClicked(selectedItem) }
         binding.subscriberRecyclerView.adapter = adapter
         displaySubscribersList()
     }
