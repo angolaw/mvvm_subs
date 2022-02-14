@@ -27,7 +27,7 @@ class SubscriberViewModel(private val repository: SubscriberRepository):ViewMode
         inputName.value = ""
 
     }
-    suspend fun insertSubscriber(subscriber: Subscriber) = viewModelScope.launch {
+    private fun insertSubscriber(subscriber: Subscriber) = viewModelScope.launch {
         repository.insert(subscriber)
     }
 }

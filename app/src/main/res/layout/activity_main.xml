@@ -1,8 +1,14 @@
 
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="myViewModel"
+            type="com.fourdeux.subs.presentation.SubscriberViewModel" />
+    </data>
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="15dp"
@@ -16,7 +22,7 @@
         android:layout_margin="15dp"
         android:layout_marginBottom="5dp"
         android:ems="10"
-        android:hint="@string/nome_do_inscrito"
+        android:text="@={myViewModel.inputName}"
         android:inputType="textPersonName"
         android:textStyle="bold" />
 
@@ -28,7 +34,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:ems="10"
-        android:hint="@string/email"
+        android:text="@={myViewModel.inputEmail}"
         android:inputType="textEmailAddress"
         android:textStyle="bold" />
 
@@ -43,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="18sp"
+            android:text="@={myViewModel.saveOrUpdateButtonText}"
             android:textStyle="bold" />
 
         <Button
@@ -52,6 +59,8 @@
             android:layout_marginStart="5dp"
             android:layout_weight="1"
             android:textSize="18sp"
+            android:text="@={myViewModel.clearAllOrDeleteButtonText}"
+
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -61,3 +70,4 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp" />
 </LinearLayout>
+</layout>
