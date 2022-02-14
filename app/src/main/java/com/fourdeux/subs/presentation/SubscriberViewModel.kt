@@ -19,7 +19,7 @@ class SubscriberViewModel(private val repository: SubscriberRepository):ViewMode
     val message: LiveData<Event<String>>
     get() = statusMessage
     private lateinit var subscriberToUpdateOrDelete: Subscriber
-    private var isUpdateOrdelete:Boolean = false
+    private var isUpdateOrDelete:Boolean = false
     init {
       saveOrUpdateButtonText.value = "Salvar"
         clearAllOrDeleteButtonText.value = "Limpar tudo"
@@ -33,7 +33,7 @@ class SubscriberViewModel(private val repository: SubscriberRepository):ViewMode
         }else if(!Patterns.EMAIL_ADDRESS.matcher(inputEmail.value!!).matches()){
             statusMessage.value = Event("Favor inserir um email válido")
         }else {
-            if(isUpdateOrdelete){
+            if(isUpdateOrDelete){
                 subscriberToUpdateOrDelete.name = inputName.value!!
                 subscriberToUpdateOrDelete.email = inputEmail.value!!
                 updateSubscriber(subscriberToUpdateOrDelete)
@@ -49,7 +49,7 @@ class SubscriberViewModel(private val repository: SubscriberRepository):ViewMode
 
     }
     fun clearOrDeleteAll(){
-        if(isUpdateOrdelete){
+        if(isUpdateOrDelete){
             deleteSubscriber(subscriberToUpdateOrDelete)
         }else{
             clearAll()
@@ -61,7 +61,7 @@ class SubscriberViewModel(private val repository: SubscriberRepository):ViewMode
         if(numberOfRows > 0){
             inputName.value = ""
             inputEmail.value = ""
-            isUpdateOrdelete = false
+            isUpdateOrDelete = false
             saveOrUpdateButtonText.value = "Salvar"
             clearAllOrDeleteButtonText.value = "Limpar tudo"
             statusMessage.value = Event("$numberOfRows registros deletados")
@@ -71,10 +71,10 @@ class SubscriberViewModel(private val repository: SubscriberRepository):ViewMode
     }
     private fun updateSubscriber(subscriber: Subscriber) = viewModelScope.launch {
         val numberOfRows = repository.update(subscriber)
-        if(numberOfRows> 0){
+        if(numberOfRows > 0){
             inputName.value = ""
             inputEmail.value = ""
-            isUpdateOrdelete = false
+            isUpdateOrDelete = false
             saveOrUpdateButtonText.value = "Salvar"
             clearAllOrDeleteButtonText.value = "Limpar tudo"
             statusMessage.value = Event("$numberOfRows registros atualizados com sucesso")
@@ -93,8 +93,8 @@ class SubscriberViewModel(private val repository: SubscriberRepository):ViewMode
     }
     fun getSavedSubscribers() = liveData {
         repository.subscribers.collect {
-        emit(it)
-    }
+            emit(it)
+        }
     }
     private fun clearAll() = viewModelScope.launch {
         val numberOfRowsAffected = repository.deleteAll()
@@ -108,7 +108,7 @@ class SubscriberViewModel(private val repository: SubscriberRepository):ViewMode
     fun initUpdateAndDelete(subscriber: Subscriber){
         inputName.value = subscriber.name
         inputEmail.value = subscriber.email
-        isUpdateOrdelete = true
+        isUpdateOrDelete = true
         subscriberToUpdateOrDelete = subscriber
         saveOrUpdateButtonText.value = "Atualizar"
         clearAllOrDeleteButtonText.value = "Deletar"
