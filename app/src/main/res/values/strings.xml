@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Subs</string>
+    <string name="nome_do_inscrito">Nome do inscrito</string>
+    <string name="email">Email</string>
 </resources>
