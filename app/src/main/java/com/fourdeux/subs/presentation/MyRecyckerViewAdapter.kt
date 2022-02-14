@@ -24,6 +24,10 @@ class MyRecyckerViewAdapter(private val clickListener:(Subscriber)->Unit):Recycl
     override fun getItemCount(): Int {
        return subscriberList.size
     }
+    fun setList(subscribers: List<Subscriber>){
+        subscriberList.clear()
+        subscriberList.addAll(subscribers)
+    }
 }
 class MyViewHolder(val binding:ListItemBinding):RecyclerView.ViewHolder(binding.root){
     fun bind(subscriber: Subscriber, clickListener: (Subscriber) -> Unit){
