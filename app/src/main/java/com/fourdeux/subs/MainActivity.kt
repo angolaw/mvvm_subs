@@ -41,8 +41,10 @@ class MainActivity : AppCompatActivity() {
 
         //setContentView(R.layout.activity_main)
     }
+
     private fun listItemClicked(subscriber: Subscriber){
-        Toast.makeText(this, "Selecionado ${subscriber.name}",Toast.LENGTH_LONG).show()
+        subscriberViewModel.initUpdateAndDelete(subscriber)
+            //Toast.makeText(this, "Selecionado ${subscriber.name}",Toast.LENGTH_LONG).show()
     }
     private fun initRecyclerView(){
         binding.subscriberRecyclerView.layoutManager = LinearLayoutManager(this)

@@ -18,6 +18,8 @@ class SubscriberViewModel(private val repository: SubscriberRepository):ViewMode
     private val statusMessage = MutableLiveData<Event<String>>()
     val message: LiveData<Event<String>>
     get() = statusMessage
+    private lateinit var subscriberToUpdateOrDelete: Subscriber
+    private var isUpdateOrdelete:Boolean = false
     init {
       saveOrUpdateButtonText.value = "Salvar"
         clearAllOrDeleteButtonText.value = "Limpar tudo"
@@ -64,5 +66,15 @@ class SubscriberViewModel(private val repository: SubscriberRepository):ViewMode
         }else{
             statusMessage.value = Event("Um erro ocorreu")
         }
+    }
+    //editing
+    fun initUpdateAndDelete(subscriber: Subscriber){
+        inputName.value = subscriber.name
+        inputEmail.value = subscriber.email
+        isUpdateOrdelete = true
+        subscriberToUpdateOrDelete = subscriber
+        saveOrUpdateButtonText.value = "Atualizar"
+        clearAllOrDeleteButtonText.value = "Deletar"
+
     }
 }
